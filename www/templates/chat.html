@@ -1,0 +1,85 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>{{otherUser.name}}</b>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+      <button class="button button-icon button-clear ion-ios-information-outline" ng-click="goInfor()">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+
+  <ion-content class="has-header comments_content"  delegate-handle="chatScroll">
+    <div class="message-wrapper" ng-repeat="item in chatList">
+              <div ng-if="item.sender_id !== currentUser.id">
+                  <img src="{{item.sender_profileImage}}" class="chatimageav left" ng-click="goUserProfile()"/>
+
+                  <div class="chat-bubble left" >
+
+                      <div class="message" >
+                          {{item.content}}
+                      </div>
+
+                      <div class="chattime">
+                       <i class="ion-ios-clock-outline"></i>&nbsp;&nbsp;{{item.createdAt}}
+                       </div>
+                  </div>
+              </div>
+
+              <div ng-if="item.sender_id == currentUser.id">
+                  <img src="{{item.sender_profileImage}}" class="chatimageav right" />
+
+                  <div class="chat-bubble right">
+
+                      <div class="message">
+                        {{item.content}}
+                      </div>
+
+                      <div class="chattime">
+                       <i class="ion-ios-clock-outline"></i>&nbsp;&nbsp;{{item.createdAt}}
+                       </div>
+                  </div>
+              </div>
+
+              <div style="clear:both;"></div>
+    </div>
+
+  </ion-content>
+
+  <ion-footer-bar keyboard-attach class="bar-stable bar-positive item-input-inset" >
+      <label class="item-input-wrapper">
+          <input type="text" class="" placeholder="Type a message..." ng-model="comment.text"/>
+      </label>
+      <button class="button button-icon icon ion-ios-paperplane-outline planeicon" ng-click="addComment()">
+      </button>
+  </ion-footer-bar>
+</ion-view>
+
+<script id="block-modal.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-ios-close-empty" ng-click="closeModal()">
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-title>
+        <b>{{otherUser.name}}</b>
+      </ion-nav-title>
+    </ion-nav-bar>
+    <ion-content class="has-header">
+      <ul class="list">
+          <li class="item" ng-click="block()">
+            <b>Block User</b>
+          </li>
+          <li class="item" ng-click="report()">
+            <b>Report as spam/inappropriate.</b>
+          </li>
+      </ul>
+    </ion-content>
+  </ion-modal-view>
+</script>

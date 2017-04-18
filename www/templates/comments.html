@@ -1,0 +1,57 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Comments</b>
+    </ion-nav-title>
+  </ion-nav-bar>
+
+
+  <ion-content class="has-header comments_content"  delegate-handle="chatScroll">
+    <div class="message-wrapper" ng-repeat="item in commentList">
+              <div ng-if="item.id !== currentUser.id">
+                  <img src="{{item.profileImage}}" class="chatimageav left" ng-click = "gotootheruser(item)"/>
+
+                  <div class="chat-bubble left" >
+
+                      <div class="message" >
+                          {{item.comment}}
+                      </div>
+
+                      <div class="chattime">
+                       <i class="ion-ios-clock-outline"></i>&nbsp;&nbsp;{{item.date}}
+                       </div>
+                  </div>
+              </div>
+
+              <div ng-if="item.userid == currentUser.id">
+                  <img src="{{item.photo}}" class="chatimageav right" />
+
+                  <div class="chat-bubble right">
+
+                      <div class="message">
+                        {{item.comment}}
+                      </div>
+
+                      <div class="chattime">
+                       <i class="ion-ios-clock-outline"></i>&nbsp;&nbsp;{{item.date}}
+                       </div>
+                  </div>
+              </div>
+
+              <div style="clear:both;"></div>
+    </div>
+
+  </ion-content>
+
+  <ion-footer-bar keyboard-attach class="bar-stable bar-positive item-input-inset" >
+      <label class="item-input-wrapper">
+          <input type="text" class="" placeholder="Type a message..." ng-model="comment.text"/>
+      </label>
+      <button class="button button-icon icon ion-ios-paperplane-outline planeicon" ng-click="addComment()">
+      </button>
+  </ion-footer-bar>
+</ion-view>

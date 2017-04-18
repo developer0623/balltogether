@@ -1,0 +1,223 @@
+<ion-view>
+  <ion-nav-bar class="bar-positive notification_header">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <img src="img/logo1.png" style="height:40px; margin-top:2px;"/>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear icon ion-ios-bell-outline bell_btn" style="margin-right:5px;" ng-click="goNotification()">
+        <span class="badge badge-assertive" ng-if="newNotificationCount>0">{{newNotificationCount}}</span>
+      </button>
+      <!--
+      <button class="button button-clear icon ion-ios-bell-outline" ng-click="openPopover($event)" style="margin-right:5px;">
+      </button>
+      -->
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+    <div class="tabs">
+      <a class="tab-item " ng-click="changeTab('events')" ng-class="current.tab=='events'?'active':''">
+        <i class="icon ion-home"></i>
+        Test
+      </a>
+      <a class="tab-item"  ng-click="changeTab('myevents')" ng-class="current.tab=='myevents'?'active':''">
+        <i class="icon ion-android-person"></i>
+        Favorites
+      </a>
+      <a class="tab-item"  ng-click="changeTab('favorites')" ng-class="current.tab=='favorites'?'active':''">
+        <i class="icon ion-star"></i>
+        Settings
+      </a>
+    </div>
+  </div>
+
+  <ion-content class="has-header has-subheader events">
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="doRefresh()">
+    </ion-refresher>
+    <ion-list class="list events_list" ng-if="current.tab=='events'" on-swipe-left="onEventsSwipeRight()">
+
+        <a class="item" ng-repeat="item in eventList">
+          <p class="no-padding"><i class="icon ion-ios-timer"></i> &nbsp;{{item.date}}, {{item.time}}</p>
+          <div class="row no-padding">
+              <div class="col-60" ng-click="goDetail(item)">
+                <p><i class="icon ion-android-pin"></i> &nbsp;{{item.location}}</p>
+                <p style="color:#2196f3"><i class="icon ion-ios-flag-outline"></i> &nbsp;{{item.attendList.length}} attending</p>
+                <rating ng-model="item.level" max="5" readonly="true"></rating>
+              </div>
+              <div class="col-40 text-center" style="padding-top:5px;">
+                <button class="button button-balanced button-small icon ion-android-done" ng-if="item.attend" ng-click="onAttending(item)"> Attending</button>
+                <button class="button button-balanced button-small button-outline" ng-if="!item.attend" ng-click="onAttending(item)">Attend Event</button>
+              </div>
+          </div>
+        </a>
+
+    </ion-list>
+
+    <div class="myevents_content" ng-if="current.tab=='myevents'" on-swipe-left="onMyEventsSwipeRight()" on-swipe-right="onMyEventsSwipeLeft()">
+      <div class="profile" style="background-image:url('{{currentUser.profileImage}}')">
+        <div class="backlog">
+          <img src="{{currentUser.profileImage}}" class="avatarImg" />
+          <h4>{{currentUser.name}}, {{currentUser.age}}</h4>
+          <div class="address">{{currentUser.city}} {{currentUser.country}}, {{currentUser.preferred}}</div>
+          <rating ng-model="currentUser.skill" max="5" readonly="true"></rating>
+        </div>
+      </div>
+      <div class="item row no-padding mtabs">
+        <div class="col-50 " ng-click="changeMyeventTab('posts')" ng-class="myevents.tab=='posts'?'active':''">HIGHLIGHTS</div>
+        <div class="col-50" ng-click="changeMyeventTab('friends')" ng-class="myevents.tab=='friends'?'active':''">FRIENDS ({{currentUser.friendList.length}})</div>
+      </div>
+      <div class="list" ng-if="myevents.tab=='posts'" style="margin-top:2px;">
+              <a class="item" ng-if="currentUser.highlight.firstUrl != ''">
+                <div class="row no-padding">
+                    <div class="col-80">
+                      <p>{{currentUser.highlight.firstTitle}}</p>
+                    </div>
+
+                    <div class="col-20" ng-click="onShareYoutube(currentUser.highlight.firstUrl)">
+                      <i class="icon ion-android-share-alt" style="color:#4caf50"></i>&nbsp;Share
+                    </div>
+                </div>
+                <div class="padding">
+                  <!-- <iframe width="100%" height="200" ng-src="{{trustSrc(currentUser.highlight.firstUrl)}}" frameborder="0" allowfullscreen></iframe> -->
+                  <video width="100%" height="100%" id="player1" preload="none">
+                      <source type="video/youtube" src="{{trustSrc(currentUser.highlight.firstUrl)}}" />
+                  </video>
+                  
+                </div>
+              </a>
+
+              <a class="item" ng-if="currentUser.highlight.secondUrl != ''">
+                <div class="row no-padding">
+                    <div class="col-80">
+                      <p>{{currentUser.highlight.secondTitle}}</p>
+                    </div>
+
+                    <div class="col-20"  ng-click="onShareYoutube(currentUser.highlight.secondUrl)">
+                      <i class="icon ion-android-share-alt" style="color:#4caf50"></i>&nbsp;Share
+                    </div>
+                </div>
+                <div class="padding">
+                  <!-- <iframe width="100%" height="200" ng-src="{{trustSrc(currentUser.highlight.secondUrl)}}" frameborder="0" allowfullscreen></iframe> -->
+                  <video width="100%" height="100%" id="player2" preload="none">
+                      <source type="video/youtube" src="{{trustSrc(currentUser.highlight.secondUrl)}}" />
+                  </video>
+                </div>
+              </a>
+
+              <a class="item" ng-if="currentUser.highlight.thirdUrl != ''">
+                <div class="row no-padding">
+                    <div class="col-80">
+                      <p>{{currentUser.highlight.thirdTitle}}</p>
+                    </div>
+
+                    <div class="col-20" ng-click="onShareYoutube(currentUser.highlight.thirdUrl)">
+                      <i class="icon ion-android-share-alt" style="color:#4caf50"></i>&nbsp;Share
+                    </div>
+                </div>
+                <div class="padding">
+                  <!-- <iframe width="100%" height="200" ng-src="{{trustSrc(currentUser.highlight.thirdUrl)}}" frameborder="0" allowfullscreen></iframe> -->
+                  <video width="100%" height="100%" id="player3" preload="none">
+                      <source type="video/youtube" src="{{trustSrc(currentUser.highlight.thirdUrl)}}" />
+                  </video>
+                </div>
+              </a>
+
+      </div>
+
+      <div class="list friends_list" ng-if="myevents.tab=='friends'" >
+        <a class="item item-avatar" ng-repeat="item in currentUser.friendList">
+          <img src="{{item.profileImage}}" />
+          <div class="row no-padding">
+              <div class="col-60" ng-click="goOtherUser($index)">
+                <h2>{{item.name}}</h2>
+                <p><i class="icon ion-android-pin"></i> &nbsp;{{item.preferred}}</p>
+                <p><i class="icon ion-android-pin"></i> &nbsp;{{item.city}}, {{item.country}}</p>
+              </div>
+
+              <div class="col-40" style="padding-top:10px; text-align:center">
+                <rating ng-model="item.skill" max="5" readonly="true"></rating>
+              </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="list fav_content" ng-if="current.tab=='favorites'" on-swipe-right="onFavoriteSwipeRight()">
+      <div class="item row no-padding mtabs">
+        <div class="col-50 " ng-click="changeFavTab('nearby')" ng-class="fav.tab=='nearby'?'active':''"><p class="title">NEARBY EVENTS</p></div>
+        <div class="col-50" ng-click="changeFavTab('myevents')" ng-class="fav.tab=='myevents'?'active':''"><p class="title">MY EVENTS</p></div>
+      </div>
+
+
+      <div class="list fav_list" ng-if="fav.tab=='nearby'" >
+
+          <a class="item" ng-repeat="item in eventList | orderBy:'distance'">
+            <p class="no-padding"><i class="icon ion-ios-timer"></i> &nbsp;{{item.date}}, {{item.time}}</p>
+            <div class="row no-padding">
+                <div class="col-60" ng-click="goDetail(item)">
+                  <p><i class="icon ion-android-pin"></i> &nbsp;{{item.location}}</p>
+                  <p style="color:#2196f3"><i class="icon ion-ios-flag-outline"></i> &nbsp;{{item.attendList.length}} attending</p>
+                  <rating ng-model="item.level" max="5" readonly="true"></rating>
+                </div>
+                <div class="col-40 text-center" style="padding-top:5px;">
+                  <button class="button button-balanced button-small icon ion-android-done" ng-if="item.attend" ng-click="onAttending(item)"> Attending</button>
+                  <button class="button button-balanced button-small button-outline" ng-if="!item.attend" ng-click="onAttending(item)">Attend Event</button>
+                  <p><i class="icon ion-android-map"></i> &nbsp;{{item.distance}} Kms Away</p>
+                </div>
+            </div>
+          </a>
+
+       </div>
+
+       <div class="list fav_list" ng-if="fav.tab=='myevents'" >
+         <div ng-repeat="item in eventList" >
+           <a class="item" ng-if="item.attend == true">
+             <p class="no-padding"><i class="icon ion-ios-timer"></i> &nbsp;{{item.date}}, {{item.time}}</p>
+             <div class="row no-padding">
+                 <div class="col-60" ng-click="goDetail(item)">
+                   <p><i class="icon ion-android-pin"></i> &nbsp;{{item.location}}</p>
+                   <p style="color:#2196f3"><i class="icon ion-ios-flag-outline"></i> &nbsp;{{item.attendList.length}} attending</p>
+                   <rating ng-model="item.level" max="5" readonly="true"></rating>
+                 </div>
+                 <div class="col-40 text-center" style="padding-top:5px;">
+                   <button class="button button-balanced button-small icon ion-android-done" ng-if="item.attend" ng-click="onAttending(item)"> Attending</button>
+                   <button class="button button-balanced button-small button-outline" ng-if="!item.attend" ng-click="onAttending(item)">Attend Event</button>
+                 </div>
+             </div>
+           </a>
+         </div>
+        </div>
+    </div>
+  </ion-content>
+  <nav mfb-menu position="br" effect="zoomin" active-icon="ion-close-round" resting-icon="ion-plus-round"
+       toggling-method="click">
+
+    <button mfb-button icon="ion-chatbox-working" ng-click="newMessage()" label="New Message" mfb-button-close></button>
+    <button mfb-button icon="ion-person-add" label="Add Friend" ng-click="addFriend()" mfb-button-close></button>
+    <button mfb-button icon="ion-calendar" label="Add Event" ng-click="addEvent()" mfb-button-close></button>
+
+  </nav>
+
+  <script id="my-popover.html" type="text/ng-template">
+    <ion-popover-view class="popover_content">
+      <ion-content scroll="false">
+        <ul class="list">
+            <li class="item" ng-click="addEvent()">
+              Add Event
+            </li>
+            <li class="item" ng-click="addFriend()">
+              Add Friend
+            </li>
+        </ul>
+      </ion-content>
+    </ion-popover-view>
+  </script>
+
+</ion-view>

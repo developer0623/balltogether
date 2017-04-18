@@ -1,0 +1,53 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content edge-drag-threshold="false" drag-content="false" >
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+
+    <ion-content scroll="true"  class="menu_content">
+      <div class="item user_profile" menu-close ng-click="goProfile()">
+        <img src="{{currentUser.profileImage}}" style="width:100px; height:100px;"/><br>
+        <div class="name">{{currentUser.name}}</div>
+      </div>
+      
+      <ion-list>
+        <ion-item menu-close href="#/app/events" class="item-icon-right">
+          Home
+          <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+        <ion-item menu-close ng-click="goProfile()" class="item-icon-right">
+          Profile Settings
+          <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+
+        <ion-item menu-close href="#/app/terms" class="item-icon-right">
+          Terms & Policies
+          <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+        <ion-item menu-close ng-click="passFeedback()" class="item-icon-right">
+          Pass Feedback
+          <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+
+        <ion-item menu-close ng-click="logout()" class="item-icon-right">
+          Logout
+          <i class="icon ion-ios-arrow-right"></i>
+        </ion-item>
+      </ion-list>
+      
+    </ion-content>
+
+    <div class="bar bar-footer menu_footer" >
+
+      <div class="title" >Version 1.0.0<br>BADD Technologies Inc.</div>
+
+    </div>
+  </ion-side-menu>
+</ion-side-menus>

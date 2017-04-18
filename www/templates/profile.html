@@ -1,0 +1,113 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive" align-title="left">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Profile Settings</b>
+    </ion-nav-title>
+  </ion-nav-bar>
+  <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light" >
+    <div class="tabs no-padding" style="width:101%; margin-left:-1px; border:0px; text-align:center;">
+      <img src="{{currentUser.profileImage}}" class="profile_img" ng-click="showCameraSheet()"/>
+    </div>
+  </div>
+  <ion-content class="has-header profile_content" style="top: 150px; ">
+    <div class="list">
+      <div class="row">
+        <div class="col-10">
+          <i class="icon ion-ios-person"></i>
+        </div>
+        <div class="col-90">
+          <label class="item item-input">
+            <input type="text" placeholder="User Name" ng-model="currentUser.name">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10">
+          <i class="icon ion-ios-calendar"></i>
+        </div>
+        <div class="col-90">
+          <label class="item item-input">
+            <input type="number" placeholder="Age" ng-model="currentUser.age">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10">
+          <i class="icon ion-ios-person-outline"></i>
+        </div>
+        <div class="col-90">
+          <label class="item item-input">
+            <input type="text" placeholder="Gender" ng-model="currentUser.gender">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10">
+          <i class="icon ion-ios-email"></i>
+        </div>
+        <div class="col-90">
+          <label class="item item-input">
+            <input type="email" placeholder="Email Address" ng-model="currentUser.email">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10">
+          <i class="icon ion-ios-location"></i>
+        </div>
+        <div class="col-90">
+          <label class="item item-input">
+            <input type="text" placeholder="Current City" ng-model="currentUser.city">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10">
+          <i class="icon ion-android-globe"></i>
+        </div>
+        <div class="col-90">
+          <label class="item item-input">
+            <input type="text" placeholder="Current Country" ng-model="currentUser.country">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10">
+          <i class="icon ion-ios-basketball"></i>
+        </div>
+        <div class="col-90">
+          <label class="item item-input">
+            <input type="text" placeholder="Player Position" ng-model="currentUser.preferred">
+          </label>
+        </div>
+      </div>
+
+      <button class="button button-assertive button-full pBtn" ng-click="goPassword()" ng-if="!currentUser.facebookLogin">Change Password</button>
+
+      <button class="button button-assertive button-full pBtn" ng-click="goHighlights()">Manage Highlights</button>
+
+      <div class="row skill_row">
+        <div class="col-40">
+          <h4>Skill Level</h4>
+        </div>
+        <div class="col-60">
+          <rating ng-model="currentUser.skill" max="5"></rating>
+        </div>
+      </div>
+
+      <button class="button button-assertive button-full" ng-click="onChange()">Submit</button>
+    </div>
+
+
+  </ion-content>
+</ion-view>

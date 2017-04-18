@@ -1,0 +1,54 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Add Event</b>
+    </ion-nav-title>
+  </ion-nav-bar>
+
+  <ion-content class="has-header addevents_content">
+    <div class="item card  item-icon-right " ng-click="openTimePopup()">
+      SELECT TIME&nbsp;&nbsp;&nbsp;{{newEvent.time}}
+      <i class="icon ion-ios-arrow-right"></i>
+    </div>
+
+    <div class="item card  item-icon-right " ng-click="openDatePopup()">
+      SELECT DATE&nbsp;&nbsp;&nbsp;{{newEvent.date}}
+      <i class="icon ion-ios-arrow-right"></i>
+    </div>
+<!--
+    <label class="item card item-input item-select">
+      <div class="input-label">
+        SELECT EVENT TYPE
+      </div>
+      <select ng-model="newEvent.type">
+        <option selected>Public</option>
+        <option >Private</option>
+      </select>
+    </label>
+-->
+    <label class="item card item-input">
+      <span class="input-label">Event Location</span>
+      <input type="text" g-places-autocomplete  ng-model="newEvent.location" />
+    </label>
+
+    <div class="item card">
+      <div class="row no-padding">
+        <div class="col-50" style="padding-top:3px;">SELECT LEVEL</div>
+        <div class="col-50"><rating ng-model="newEvent.exp" max="5" ></rating></div>
+      </div>
+    </div>
+
+    <div class="item card">
+      ADD A DESCRIPTION
+      <textarea placeholder="Comments" ng-model="newEvent.description"></textarea>
+    </div>
+    <div class="padding">
+      <button class="button button-assertive button-full" ng-click="createEvent()">CREATE EVENT</button>
+    </div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,120 @@
+<ion-view>
+  <ion-nav-bar class="bar-positive" >
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <img src="img/logo1.png" style="height:35px; margin-top:4px;"/>
+    </ion-nav-title>
+    <ion-nav-buttons side="right">
+      <button class="button button-clear button-icon ion-chatbox-working" style="margin-right:5px;" ng-click="goChat()" ng-if="!isBlock">
+      </button>
+      <button class="button button-clear button-icon icon-user-plus" style="margin-right:5px;" ng-click="requestFriend()" ng-if="weAreFriend=='Yet'">
+      </button>
+      <button class="button button-clear button-icon icon-user-check" style="margin-right:5px;" ng-click="acceptFriend()" ng-if="weAreFriend=='Pending'">
+      </button>
+      <button class="button button-clear button-icon icon-user-minus" style="margin-right:5px;" ng-click="cancelFriend()" ng-if="weAreFriend=='Accept'">
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <ion-content class="has-header events">
+    <div class="myevents_content" >
+      <div class="profile" style="background-image:url('{{otherUser.profileImage}}')">
+        <div class="backlog">
+          <img src="{{otherUser.profileImage}}" class="avatarImg" />
+          <h4>{{otherUser.name}}</h4>
+          <div class="address">{{otherUser.city}} {{otherUser.country}}, {{otherUser.preferred}}</div>
+          <rating ng-model="otherUser.skill" max="5" readonly="true"></rating>
+        </div>
+      </div>
+      <div class="item row no-padding mtabs">
+        <div class="col-50 " ng-click="changeMyeventTab('highlight')" ng-class="myevents.tab=='highlight'?'active':''">HIGHLIGHTS</div>
+        <div class="col-50" ng-click="changeMyeventTab('friends')" ng-class="myevents.tab=='friends'?'active':''">FRIENDS ({{otherUser.friendList.length}})</div>
+      </div>
+      <div class="list" ng-if="myevents.tab=='highlight'" style="margin-top:2px;">
+              <a class="item" ng-if="otherUser.highlight.firstUrl != ''">
+                <div class="row no-padding">
+                    <div class="col-80">
+                      <p>{{otherUser.highlight.firstTitle}}</p>
+                    </div>
+
+                    <div class="col-20" ng-click="onShareYoutube(otherUser.highlight.firstTitle)">
+                      <i class="icon ion-android-share-alt" style="color:#4caf50"></i>&nbsp;Share
+                    </div>
+                </div>
+                <div class="padding">
+                  <iframe width="100%" height="200" ng-src="{{trustSrc(otherUser.highlight.firstUrl)}}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </a>
+
+              <a class="item" ng-if="otherUser.highlight.secondUrl != ''">
+                <div class="row no-padding">
+                    <div class="col-80">
+                      <p>{{otherUser.highlight.secondTitle}}</p>
+                    </div>
+
+                    <div class="col-20" ng-click="onShareYoutube(otherUser.highlight.secondUrl)" >
+                      <i class="icon ion-android-share-alt" style="color:#4caf50"></i>&nbsp;Share
+                    </div>
+                </div>
+                <div class="padding">
+                  <iframe width="100%" height="200" ng-src="{{trustSrc(otherUser.highlight.secondUrl)}}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </a>
+
+              <a class="item" ng-if="otherUser.highlight.thirdUrl != ''">
+                <div class="row no-padding">
+                    <div class="col-80">
+                      <p>{{otherUser.highlight.thirdTitle}}</p>
+                    </div>
+
+                    <div class="col-20" ng-click="onShareYoutube(otherUser.highlight.thirdUrl)">
+                      <i class="icon ion-android-share-alt" style="color:#4caf50"></i>&nbsp;Share
+                    </div>
+                </div>
+                <div class="padding">
+                  <iframe width="100%" height="200" ng-src="{{trustSrc(otherUser.highlight.thirdUrl)}}" frameborder="0" allowfullscreen></iframe>
+                </div>
+              </a>
+
+      </div>
+
+      <div class="list friends_list" ng-if="myevents.tab=='friends'" >
+        <a class="item item-avatar" ng-repeat="item in otherUser.friendList">
+          <img src="{{item.profileImage}}" />
+          <div class="row no-padding">
+              <div class="col-60" ng-click="goOtherUser($index)">
+                <h2>{{item.name}}</h2>
+                <p><i class="icon ion-android-pin"></i> &nbsp;{{item.preferred}}</p>
+                <p><i class="icon ion-android-pin"></i> &nbsp;{{item.city}}, {{item.country}}</p>
+              </div>
+
+              <div class="col-40" style="padding-top:10px; text-align:center">
+                <rating ng-model="item.skill" max="5" readonly="true"></rating>
+              </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </ion-content>
+
+  <script id="my-popover.html" type="text/ng-template">
+    <ion-popover-view class="popover_content">
+      <ion-content scroll="false">
+        <ul class="list">
+            <li class="item" ng-click="addEvent()">
+              Add Event
+            </li>
+            <li class="item" ng-click="addFriend()">
+              Add Friend
+            </li>
+        </ul>
+      </ion-content>
+    </ion-popover-view>
+  </script>
+
+</ion-view>

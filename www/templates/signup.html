@@ -1,0 +1,85 @@
+<ion-view>
+  <ion-header-bar class="bar-positive">
+    <div class="buttons">
+      <button class="button button-clear icon ion-ios-arrow-thin-left" ng-click="goBack()"></button>
+    </div>
+    <h1 class="title">Sign Up</h1>
+  </ion-header-bar>
+  <ion-content class="singin_content">
+    <br>
+    <div class="full-image text-center">
+      <img class="img_btn" ng-src="img/Profile.png" ng-if="user._profileImage==''" ng-click="showCameraSheet()"/>
+      <img class="img_btn" ng-src="{{user._profileImage}}" ng-if="user._profileImage!=''" ng-click="showCameraSheet()"/>
+    </div>
+    <div class="list" style="margin-top:0px;">
+      <label class="item item-input">
+        <input type="text" placeholder="User Name" ng-model="user._username">
+      </label>
+      <label class="item item-input">
+        <input type="password" placeholder="Password" ng-model="user._password">
+      </label>
+<!--      <label class="item item-input">
+        <input type="password" placeholder="Confirm Password" ng-model="user._confirm_password">
+      </label>-->
+      <div class="row no-padding">
+        <div class="col-50" >
+          <label class="item item-input item-select">
+            <select  ng-model="user._age">
+              <option selected >Age</option>
+              <option ng-repeat="item in ageList" >{{item}}</option>
+            </select>
+          </label>
+        </div>
+        <div class="col-50">
+          <label class="item item-input item-select" style="margin-left:5%">
+            <div class="input-label">
+              &nbsp;
+            </div>
+            <select ng-model="user._gender">
+              <option selected>Gender</option>
+              <option >Male</option>
+              <option>Female</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <label class="item item-input">
+        <input type="email" placeholder="Email Address" ng-model="user._email">
+      </label>
+      <div class="row no-padding">
+        <div class="col-50">
+          <label class="item item-input">
+            <input type="text" placeholder="City" ng-model="user._city">
+          </label>
+        </div>
+        <div class="col-50">
+          <label class="item item-input item-select" style="margin-left:5%">
+            <div class="input-label">
+              &nbsp;
+            </div>
+            <select ng-model="user._country">
+              <option selected>US</option>
+              <option>Canada</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <label class="item item-input ">
+        <input type="text" placeholder="Player Position" ng-model="user._preferredPosition">
+      </label>
+      <!--<ion-checkbox ng-model="user.accept_terms" class="custom_checkbox"><div style="font-size:0.9em; white-space:normal !important;">Allow us send info about events and promotions</div></ion-checkbox>-->
+      <br/>
+      <label><input type="checkbox" ng-model="user.terms" /> I agree to the </label><font style="color:#2195f2" ng-click="goTerms()">Terms and Conditions</font>
+      <br/>
+      <button class="button button-assertive button-full" ng-click="signup()">SIGN UP</button>
+
+      <p class=" no-border text-center">OR</p>
+
+      <button class="button button-positive button-full icon-left ion-social-facebook" ng-click="fbLogin()">SIGN UP WITH FACEBOOK</button>
+<!--
+      <a class="button button-stable button-full button-clear" href="#/signin">Already have an account? Sign In</a>
+    -->
+    </div>
+
+  </ion-content>
+</ion-view>

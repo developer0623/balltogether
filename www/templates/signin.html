@@ -1,0 +1,27 @@
+<ion-view>
+  <ion-header-bar class="bar-positive">
+    <div class="buttons">
+      <button class="button button-clear icon ion-ios-arrow-thin-left" ng-click="goBack()"></button>
+    </div>
+    <h1 class="title">Sign In</h1>
+  </ion-header-bar>
+  <ion-content class="singin_content">
+    <div class="list">
+      <label class="item item-input">
+        <input type="email" placeholder="Email" ng-model="user._userName">
+      </label>
+      <label class="item item-input">
+        <input type="password" placeholder="Password" ng-model="user._pass">
+      </label>
+      <br><br><br><br><br>
+      <button class="button button-assertive button-full" ng-click="signin()">SIGN IN</button>
+
+      <h5 class="item no-border text-center">OR</h5>
+
+      <button class="button button-positive button-full icon-left ion-social-facebook" ng-click="fbLogin()">SIGN IN WITH FACEBOOK</button>
+
+      <a class="button button-stable button-full button-clear" href="#/forgot_password" >Forgot password?</a>
+    </div>
+
+  </ion-content>
+</ion-view>

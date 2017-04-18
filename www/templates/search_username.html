@@ -1,0 +1,47 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Search Username</b>
+    </ion-nav-title>
+
+  </ion-nav-bar>
+
+  <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light" >
+    <div class="tabs no-padding" style="width:101%; margin-left:-1px; border:0px;">
+      <div class="item item-input-inset" style="width:100%; background:transparent;">
+        <label class="item-input-wrapper">
+          <i class="icon ion-search placeholder-icon"></i>
+          <!-- <input type="text" placeholder="Search Friends" ng-model="user.name"> -->
+          <input type="search" placeholder="Search Friends" ng-model="user.name" ng-change="search()">
+        </label>
+        <button class="button button-small button-positive" ng-click="search()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <ion-content class="has-header has-subheader myevents_content">
+
+    <div class="list friends_list" >
+      <a class="item item-avatar" ng-repeat="item in userList | filter:user.name | orderBy:'name'" ng-click="goOtherUser(item)">
+        <img src="{{item.profileImage}}" />
+        <div class="row no-padding">
+            <div class="col-60" ng-click="goOtherUser(item)">
+              <h2>{{item.name}}</h2>
+              <p><i class="icon ion-android-pin"></i> &nbsp;{{item.preferred}}</p>
+              <p><i class="icon ion-android-pin"></i> &nbsp;{{item.city}}, {{item.country}}</p>
+            </div>
+
+            <div class="col-40" style="padding-top:10px; text-align:center">
+              <rating ng-model="item.skill" max="5" readonly="true"></rating>
+            </div>
+        </div>
+      </a>
+
+    </div>
+  </ion-content>
+</ion-view>

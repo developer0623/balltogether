@@ -1,0 +1,16 @@
+<ion-modal-view class="notification-modal-view">
+
+ 	<ion-header-bar class="bar-stable" align-title="center" style="background-color: #2196f3 !important;">
+      <h1 class="title" style="color: white !important;">Notification Alert</h1>
+      <button class="button button-clear ion-ios-close-outline" style="font-size: 25px;color: white !important;" ng-click="notificationModal.hide()"></button>
+    </ion-header-bar>
+  <ion-content scroll="false" style="background: #F5F5F7;">
+  	 <div class="notification-content-wrapper" ng-controller="ModalCtrl">
+     	<p style="text-align: center;">{{notificationMessage}}</p>
+    
+	     <button class="button button-block button-positive notification-bottom_button" ng-click="notificationViewDetails()">
+		  View Details
+		 </button>
+	 </div>
+    </ion-content>
+</ion-modal-view> 

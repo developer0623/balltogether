@@ -1,0 +1,43 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Add Friend</b>
+    </ion-nav-title>
+  </ion-nav-bar>
+
+
+  <ion-content class="has-header addfriend_content">
+    <div class="list">
+        <a class="item item-icon-left item-icon-right card" href="#/app/search_username">
+          <i class="icon ion-ios-search positive" ></i>
+          SEARCH USERNAME
+          <i class="icon ion-ios-arrow-right"></i>
+        </a>
+
+        <div class="item card item-icon-left  item-icon-right " ng-click="goAddFromContacts()">
+          <i class="icon ion-ios-list positive"></i>
+          ADD FROM CONTACTS
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+
+        <div class="item card item-icon-left  item-icon-right " ng-click="shareUser()">
+          <i class="icon ion-android-share-alt positive"></i>
+          SHARE YOUR USERNAME
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+<!--
+        <div class="item card item-icon-left  item-icon-right ">
+          <i class="icon ion-ios-paperplane positive"></i>
+          ADD NEARBY
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+-->
+    </div>
+
+
+  </ion-content>
+</ion-view>

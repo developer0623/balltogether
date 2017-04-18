@@ -1,0 +1,33 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Players</b>
+    </ion-nav-title>
+  </ion-nav-bar>
+
+
+  <ion-content class="has-header ">
+
+    <ion-list class="events_list">
+        <a class="item item-avatar" ng-repeat="item in playerList" ng-click="goOtherUser($index)">
+          <img src="{{item.profileImage}}" />
+          <div class="row no-padding">
+              <div class="col-60">
+                <h2>{{item.name}}</h2>
+                <p>{{item.preferred}}</p>
+                <p>{{item.city}}, {{item.country}}</p>
+
+              </div>
+
+              <div class="col-40" style="padding-top:10px; text-align:center">
+                <rating ng-model="item.skill" max="5" readonly="true"></rating>
+              </div>
+          </div>
+        </a>
+    </ion-list>
+  </ion-content>
+</ion-view>

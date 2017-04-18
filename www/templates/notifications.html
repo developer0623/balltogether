@@ -1,0 +1,98 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive notification_header">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Notifications</b>
+    </ion-nav-title>
+    <ion-nav-buttons side="right ">
+      <button class="button button-icon button-clear ion-ios-chatbubble-outline" ng-class="tab.status=='chat'?'actived':''" ng-click="onChatList()">
+      </button>
+      <button class="button button-icon button-clear ion-ios-bell-outline bell_btn" ng-class="tab.status=='notification'?'actived':''" ng-click="onNotificationList()">
+        <!--<span class="badge badge-assertive"  ng-if="newNotificationCount>0">{{newNotificationCount}}</span>-->
+      </button>
+    </ion-nav-buttons>
+  </ion-nav-bar>
+
+  <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light" ng-if="tab.status !== 'chat'">
+    <div class="tabs">
+      <a class="tab-item active" ng-class="tab.substatus=='all'?'active':''" ng-click="onChangeSubTab('all')">
+        All
+      </a>
+      <a class="tab-item" ng-class="tab.substatus=='friends'?'active':''" ng-click="onChangeSubTab('friends')">
+        Friends
+      </a>
+      <a class="tab-item" ng-class="tab.substatus=='events'?'active':''" ng-click="onChangeSubTab('events')">
+        Events
+      </a>
+    </div>
+  </div>
+
+  <ion-content class="has-header notification_content" ng-class="tab.status=='notification'?'has-subheader':''">
+
+    <ion-list ng-if="tab.status == 'chat'">
+      <ion-item class="item item-avatar" ng-repeat="item in chatMessageList | orderBy:'createdAt1':true" ng-click="goUserProfileFromChat(item)">
+
+        <img src="{{item.sender_profileImage}}">
+        <h2>{{item.sender_name}}</h2>
+        <p>{{item.content}}</p>
+        <span class="item-note">
+          {{item.createdAt}}
+        </span>
+
+      <ion-option-button class="button-assertive" ng-click="delete(item)">
+        Delete
+      </ion-option-button>
+    </ion-item>
+    </ion-list>
+
+    <ion-list ng-if="tab.status=='notification'">
+      <ion-list ng-if="tab.substatus == 'all'">
+        <div ng-repeat="item in notificationList" >
+          <div class="item item-avatar" ng-if="item.type == 'FRIENDSHIP'" ng-click="goUserProfile(item)">
+            <img src="{{item.senderProfileImage}}">
+            <h2>{{item.senderName}}</h2>
+            <p>{{item.data}}</p>
+            <span class="item-note">
+              {{item.date}}
+            </span>
+          </div>
+
+          <div class="item item-avatar" ng-if="item.type == 'EVENT'" ng-click="goEventDetail(item)">
+            <img src="{{item.senderProfileImage}}">
+            <h2>{{item.senderName}}</h2>
+            <p>{{item.data}}</p>
+            <span class="item-note">
+              {{item.date}}
+            </span>
+          </div>
+        </div>
+      </ion-list>
+
+      <ion-list ng-if="tab.substatus == 'friends'">
+        <div class="item item-avatar" ng-repeat="item in notificationList" ng-if="item.type == 'FRIENDSHIP'" ng-click="goUserProfile(item)">
+          <img src="{{item.senderProfileImage}}">
+          <h2>{{item.senderName}}</h2>
+          <p>{{item.data}}</p>
+          <span class="item-note">
+            {{item.date}}
+          </span>
+        </div>
+      </ion-list>
+
+      <ion-list ng-if="tab.substatus == 'events'">
+        <div class="item item-avatar" ng-repeat="item in notificationList" ng-if="item.type == 'EVENT'" ng-click="goEventDetail(item)">
+          <img src="{{item.senderProfileImage}}">
+          <h2>{{item.senderName}}</h2>
+          <p>{{item.data}}</p>
+          <span class="item-note">
+            {{item.date}}
+          </span>
+        </div>
+      </ion-list>
+
+    </ion-list>
+  </ion-content>
+</ion-view>

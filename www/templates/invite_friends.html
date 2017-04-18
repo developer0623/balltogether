@@ -1,0 +1,46 @@
+<ion-view >
+  <ion-nav-bar class="bar-positive">
+    <ion-nav-buttons side="left">
+      <button class="button button-icon button-clear ion-ios-arrow-thin-left" ng-click="goBack()">
+      </button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <b>Invite Friends</b>
+    </ion-nav-title>
+  </ion-nav-bar>
+
+  <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light" >
+    <div class="tabs no-padding" style="width:101%; margin-left:-1px; border:0px;">
+      <div class="item item-input-inset" style="width:100%; background:transparent;">
+        <label class="item-input-wrapper">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="text" placeholder="Search Friends" ng-model="search.text">
+        </label>
+
+      </div>
+    </div>
+  </div>
+  <ion-content class="has-header has-subheader invite_friends_content ">
+
+    <ion-list class="events_list">
+        <a class="item item-avatar" ng-repeat="item in friendList | filter:search.text">
+          <img src="{{item.profileImage}}" />
+          <div class="row no-padding">
+              <div class="col-60">
+                <h2>{{item.name}}</h2>
+                <p><i class="icon ion-android-pin"></i> &nbsp;{{item.preferred}}</p>
+                <p><i class="icon ion-android-pin"></i> &nbsp;{{item.city}}, {{item.country}}</p>
+                <rating ng-model="item.skill" max="5" readonly="true"></rating>
+              </div>
+
+              <div class="col-40" style="padding-top:10px; text-align:center" ng-if="!item.invite" >
+                <button class="button button-balanced button-small button-outline invitebtn" ng-click="onInviteFriend(item)">Invite</button>
+              </div>
+              <div class="col-40" style="padding-top:10px; text-align:center" ng-if="item.invite" >
+                <button class="button button-balanced button-small invitebtn" >Invited</button>
+              </div>
+          </div>
+        </a>
+    </ion-list>
+  </ion-content>
+</ion-view>
